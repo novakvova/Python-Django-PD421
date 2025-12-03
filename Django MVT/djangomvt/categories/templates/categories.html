@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" 
+        content="width=device-width, initial-scale=1.0">
+    <title>Категорії</title>
+</head>
+<body>
+   <h1>Список категорій</h1>
+    <ul>
+         {% for category in categories %}
+              <li>
+                <h2>{{ category.name }}</h2>
+                <p>{{ category.description }}</p>
+                {% if category.image %}
+                     <img src="{{ category.image.url }}" 
+                        alt="{{ category.name }}"
+                        width="250">
+                {% endif %}
+              </li>
+         {% empty %}
+              <li>Категорії відсутні.</li>
+         {% endfor %}
+    </ul>
+</body>
+</html>

@@ -49,7 +49,7 @@ pip freeze > requirements.txt
 
 git clone https://github.com/novakvova/Python-Django-PD421.git
 cd Python-Django-PD421
-cd djangomvt
+cd Django MVT
 py -m venv .venv
 .venv\Scripts\activate.bat
 
