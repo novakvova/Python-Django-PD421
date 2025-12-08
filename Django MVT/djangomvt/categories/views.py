@@ -9,4 +9,5 @@ def show_categories(request):
 
 
 def add_category(request):
+    
     return render(request, 'add_category.html')
