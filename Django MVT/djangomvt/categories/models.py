@@ -9,3 +9,5 @@ class Category(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True, verbose_name="Активна")
     image = models.ImageField(upload_to='images/', blank=True, null=True, verbose_name="Зображення")
+
+    

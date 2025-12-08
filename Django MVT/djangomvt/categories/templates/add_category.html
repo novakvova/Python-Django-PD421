@@ -4,15 +4,39 @@
 
 <h1 class="text-center">Додати категорій</h1>
 <div class="row">
-    <form class="col-md-6 offset-md-3" method='post'>
+    <form class="col-md-6 offset-md-3" method='post' enctype="multipart/form-data">
         {% csrf_token %}
         <div class="mb-3">
             <label for="name" class="form-label">Назва</label>
-            <input type="text" class="form-control" id="name">
+            <input type="text" class="form-control" id="name" name="name">
+        </div>
+
+        <div class="mb-3">
+            <label for="image" style="cursor: pointer" class="form-label">
+                <img src="/images/noimage.jpg" id="imageView" width="200">
+            </label>
+            <input type="file" class="d-none" id="image" name="image">
         </div>
 
         <button type="submit" class="btn btn-primary">Додати</button>
     </form>
 </div>
+
+<script>
+    window.addEventListener("load", () => {
+        image.addEventListener("change", (e) => {
+            const files = e.target.files;
+            if(files) {
+                const file = files[0];
+                if(file) 
+                {
+                    imageView.src = URL.createObjectURL(file);
+                }
+            }
+            //console.log("Change Load image", e.target.files);
+        });
+        
+    });
+</script>
 
 {% endblock %}
