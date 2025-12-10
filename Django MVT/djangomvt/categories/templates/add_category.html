@@ -1,4 +1,9 @@
 {% extends 'layout.html' %}
+{% load static %}
+
+{% block mystyles %}
+    <link rel="stylesheet" href="{% static 'css/cropper.css' %}">
+{% endblock %}
 
 {% block mycontent %}
 
@@ -22,18 +27,65 @@
     </form>
 </div>
 
+
+<!-- Modal -->
+<div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Редагування фото</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div>
+            <img id="imageModal" src="/images/noimage.jpg" alt="Picture" width="100%">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" id="btnCroppedImage" class="btn btn-primary">Обрізати</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
 
 {% block myscripts %}
+
+   <script src="{% static 'js/cropper.js' %}"></script>
 <script>
     window.addEventListener("load", () => {
+        const exampleModal = new bootstrap.Modal('#exampleModal');
+
+        var cropper;
+
+        document.getElementById("exampleModal").addEventListener('shown.bs.modal', event => {
+            //console.log("View modal working");
+            cropper = new Cropper(imageModal, {
+                autoCropArea: 0.5,
+            });
+        });
+
+        document.getElementById("exampleModal").addEventListener('hidden.bs.modal', event => {
+            cropper.destroy();
+        });
+
+        btnCroppedImage.addEventListener("click", () => {
+            var croppedimage = cropper.getCroppedCanvas().toDataURL("image/png");
+            console.log("Working image", croppedimage);
+            exampleModal.hide();
+        });
+
         image.addEventListener("change", (e) => {
             const files = e.target.files;
             if(files) {
                 const file = files[0];
                 if(file) 
                 {
-                    imageView.src = URL.createObjectURL(file);
+                    imageModal.src = URL.createObjectURL(file);
+                    exampleModal.show();
+                    //imageView.src = URL.createObjectURL(file);
                 }
             }
             //console.log("Change Load image", e.target.files);
