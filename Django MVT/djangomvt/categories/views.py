@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 from django.utils.text import slugify
 from unidecode import unidecode
@@ -11,12 +11,17 @@ def show_categories(request):
 
 
 def add_category(request):
-    if request.method == 'POST':
-        myData = request.POST
-        name = myData.get('name')
-        image = request.FILES.get('image')
-        slug = slugify(unidecode(name))
-        category = Category(name=name, image=image)
-        print("request -- post", request)
+    if request.method == "POST":
+        category_name = request.POST.get("name")
+        print(category_name)
+        category_slug = slugify(unidecode(category_name))
+        category_description = request.POST.get("description")
+        category_is_active = request.POST.get("is_active") == "checked"
+        category_image = request.FILES.get("image")
+
+        category = Category(name = category_name, slug = category_slug, description = category_description, is_active = category_is_active, image = category_image)
+        category.save()
+
+        return redirect('/categories/')
     
     return render(request, 'add_category.html')
