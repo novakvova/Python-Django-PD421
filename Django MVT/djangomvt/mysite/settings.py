@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'categories',
+    'users',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -138,6 +139,8 @@ STATICFILES_DIRS = [
 IMAGE_URL = '/images/'
 
 IMAGES_ROOT = BASE_DIR / 'images'
+
+AUTH_USER_MODEL = 'users.CustomUser'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
