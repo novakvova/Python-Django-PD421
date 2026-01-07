@@ -32,9 +32,9 @@ const RegisterPage = () => {
                         <Form onFinish={onFinish}
                               className={"w-full"}
                               form={form}
-                              labelCol={{span: 6}}
-                              wrapperCol={{span: 16}}
-                              layout={"horizontal"}
+                              // labelCol={{span: 8}}
+                              // wrapperCol={{span: 14}}
+                              layout={"vertical"}
                         >
                             <Form.Item<IRegisterUser>
                                 label={"Електронна пошта"}
