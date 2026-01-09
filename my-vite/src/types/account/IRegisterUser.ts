@@ -1,3 +1,6 @@
+import type {UploadFile} from "antd";
+import type {RcFile} from "antd/es/upload";
+
 export interface IRegisterUser {
     email: string;
     password: string;
@@ -5,5 +8,5 @@ export interface IRegisterUser {
     phoneNumber: string;
     firstName: string;
     lastName: string;
-    image: File;
+    image: RcFile | null | Array<UploadFile>;
 }

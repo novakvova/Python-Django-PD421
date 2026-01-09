@@ -6,15 +6,28 @@ const RegisterPage = () => {
     const [form] = Form.useForm<IRegisterUser>();
 
     const onFinish = (values: IRegisterUser) => {
+        // if(values.image?.type == UploadFile)
+        if (Array.isArray(values.image)) {
+            values.image = values.image[0].originFileObj!;
+            // console.log("Is array", values.image[0]);
+        }
         console.log('Success:', values);
     }
 
     const normFile = (e: any) => {
         console.log('Upload event:', e);
         if (Array.isArray(e)) {
+            // console.log('Upload event length:', e.length);
             return e;
         }
-        return e?.fileList;
+        const n = e?.fileList.length;
+        // console.log('Upload event file select:', e?.file);
+        // form.setFieldValue("image", e?.File);
+        // console.log("image value", form.getFieldValue("image"));
+        // return e?.fileList;
+        if(n<1) return e?.fileList;
+        return [e?.fileList[n-1]];
+        //return e?.fileList;
     };
 
     return (
@@ -30,10 +43,8 @@ const RegisterPage = () => {
 
                     <div className="max-w-full overflow-x-auto">
                         <Form onFinish={onFinish}
-                              className={"w-full"}
+                              // className={"w-full"}
                               form={form}
-                              // labelCol={{span: 8}}
-                              // wrapperCol={{span: 14}}
                               layout={"vertical"}
                         >
                             <Form.Item<IRegisterUser>
@@ -87,10 +98,14 @@ const RegisterPage = () => {
                             </Form.Item>
 
                             <Form.Item label="Dragger">
-                                <Form.Item name="dragger" valuePropName="fileList"
+                                <Form.Item<IRegisterUser> name="image" valuePropName="fileList"
                                            getValueFromEvent={normFile}
                                            noStyle>
-                                    <Upload.Dragger name="files" action="/upload.do">
+                                    <Upload.Dragger name="files" multiple={false}
+                                                    listType="picture"
+                                                    accept={"image/*"}
+                                                    beforeUpload={() => {return false;}}
+                                    >
                                         <p className="ant-upload-drag-icon">
                                             <InboxOutlined />
                                         </p>
