@@ -43,6 +43,11 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+]
+
 # Add this to the bottom of settings.py
 REST_FRAMEWORK = {
     # ...

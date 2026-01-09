@@ -3,10 +3,11 @@ import type {RcFile} from "antd/es/upload";
 
 export interface IRegisterUser {
     email: string;
+    username:string;
     password: string;
     confirmPassword: string;
-    phoneNumber: string;
-    firstName: string;
-    lastName: string;
+    phone: string;
+    first_name: string;
+    last_name: string;
     image: RcFile | null | Array<UploadFile>;
 }

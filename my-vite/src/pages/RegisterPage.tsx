@@ -1,6 +1,7 @@
 import {Button, Form, Input, Upload} from "antd";
 import { InboxOutlined } from '@ant-design/icons';
 import type {IRegisterUser} from "../types/account/IRegisterUser.ts";
+import axios from "axios";
 
 const RegisterPage = () => {
     const [form] = Form.useForm<IRegisterUser>();
@@ -11,6 +12,13 @@ const RegisterPage = () => {
             values.image = values.image[0].originFileObj!;
             // console.log("Is array", values.image[0]);
         }
+        axios.post("http://localhost:4099/api/users/register/", values,
+            {
+                headers: {'Content-Type': 'multipart/form-data'}
+            })
+            .then(res => {
+                console.log("Register is good", res);
+            });
         console.log('Success:', values);
     }
 
@@ -56,8 +64,16 @@ const RegisterPage = () => {
                             </Form.Item>
 
                             <Form.Item<IRegisterUser>
+                                label={"Логін користувача"}
+                                name={"username"}
+                                rules={[{ required: true, message: 'Вкажіть логін'}]}
+                            >
+                                <Input/>
+                            </Form.Item>
+
+                            <Form.Item<IRegisterUser>
                                 label={"Прізвище"}
-                                name={"lastName"}
+                                name={"first_name"}
                                 rules={[{ required: true, message: 'Вкажіть прізвище'}]}
                             >
                                 <Input/>
@@ -65,7 +81,7 @@ const RegisterPage = () => {
 
                             <Form.Item<IRegisterUser>
                                 label={"Ім'я"}
-                                name={"firstName"}
+                                name={"last_name"}
                                 rules={[{ required: true, message: "Вкажіть ім'я"}]}
                             >
                                 <Input/>
@@ -73,8 +89,14 @@ const RegisterPage = () => {
 
                             <Form.Item<IRegisterUser>
                                 label={"Телефон"}
-                                name={"phoneNumber"}
-                                rules={[{ required: true, message: "Вкажіть телефон"}]}
+                                name={"phone"}
+                                rules={[{
+                                    required: true,
+                                    message: "Вкажіть телефон"
+                                }, {max: 15}, {
+                                    pattern: /^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$/,
+                                    message: "Вкажіть валідний номер телефона!"
+                                }]}
                             >
                                 <Input/>
                             </Form.Item>
@@ -82,7 +104,15 @@ const RegisterPage = () => {
                             <Form.Item<IRegisterUser>
                                 label={"Пароль"}
                                 name={"password"}
-                                rules={[{ required: true, message: "Вкажіть пароль"}]}
+                                rules={[{
+                                    required: true,
+                                    message: "Вкажіть пароль"
+                                },
+                                    {max: 20, message:"Пароль не може містити більше 20 символів"},
+                                    {
+                                        pattern: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
+                                        message: "Пароль має містити 1 велику, 1 маленьку букву, 1 цифру і 1 спеціальний символ"
+                                    }]}
                             >
                                 <Input.Password/>
                             </Form.Item>
@@ -91,7 +121,16 @@ const RegisterPage = () => {
                                 label={"Підтвердження паролю"}
                                 name={"confirmPassword"}
                                 rules={[
-                                    { required: true, message: "Вкажіть підтвердження пароль"}
+                                    {required: true, message: "Вкажіть підтвердження пароль"},
+                                    ({ getFieldValue }) => ({
+                                        validator(_, value) {
+                                            if (!value || getFieldValue('password') === value) {
+                                                return Promise.resolve();
+                                            }
+                                            return Promise.reject(new Error('Паролі не збігаються!'));
+                                        },
+                                    }),
+                                    {max:20, message:"Пароль не може містити більше ніж 20 символів"}
                                 ]}
                             >
                                 <Input.Password/>
