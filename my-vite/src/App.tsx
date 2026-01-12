@@ -1,12 +1,23 @@
 import './App.css'
 import RegisterPage from "./pages/RegisterPage.tsx";
+import {Route, Routes} from "react-router-dom";
+import LoginPage from "./pages/LoginPage.tsx";
+import DefaultLayout from "./components/layouts/DefaultLayout.tsx";
+import MainPage from "./pages/MainPage.tsx";
 
 function App() {
 
 
   return (
       <>
-          <RegisterPage />
+          <Routes>
+              <Route path='/' element={<DefaultLayout/>}>
+                  <Route index element={<MainPage/>}/>
+                  <Route path='/register' element={<RegisterPage/>}/>
+                  <Route path='/login' element={<LoginPage/>}/>
+                  {/*<Route path="/profile" element={<ProfilePage />} />*/}
+              </Route>
+          </Routes>
 
           {/*<div className="container mx-auto px-4 py-16">*/}
           {/*    <h1 className="mb-4 text-center text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl">*/}
