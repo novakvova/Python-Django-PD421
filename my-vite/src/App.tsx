@@ -4,6 +4,8 @@ import {Route, Routes} from "react-router-dom";
 import LoginPage from "./pages/LoginPage.tsx";
 import DefaultLayout from "./components/layouts/DefaultLayout.tsx";
 import MainPage from "./pages/MainPage.tsx";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage.tsx";
+import SuccessPage from "./pages/SuccessPage.tsx";
 
 function App() {
 
@@ -15,6 +17,8 @@ function App() {
                   <Route index element={<MainPage/>}/>
                   <Route path='/register' element={<RegisterPage/>}/>
                   <Route path='/login' element={<LoginPage/>}/>
+                  <Route path={"forgot-password"} element={<ForgotPasswordPage />} />
+                  <Route path={"success-confirm"} element={<SuccessPage />} />
                   {/*<Route path="/profile" element={<ProfilePage />} />*/}
               </Route>
           </Routes>

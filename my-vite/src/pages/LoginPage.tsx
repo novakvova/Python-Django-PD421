@@ -1,6 +1,6 @@
 import {Button, Form, Input} from "antd";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {APP_ENV} from "../env";
 import type {ILoginUser} from "../types/account/ILoginUser.ts";
 
@@ -80,12 +80,21 @@ const LoginPage = () => {
                                     <Input.Password/>
                                 </Form.Item>
 
+                                <Link
+                                    to="/forgot-password"
+                                    className="block text-sm text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300"
+                                >
+                                    Forgot password?
+                                </Link>
 
-                                <Form.Item label={null}>
-                                    <Button className="min-w-full" type="primary" htmlType="submit">
-                                        Вхід
-                                    </Button>
-                                </Form.Item>
+                                <div className={"mt-4"}>
+                                    <Form.Item label={null}>
+                                        <Button className="min-w-full" type="primary" htmlType="submit">
+                                            Вхід
+                                        </Button>
+                                    </Form.Item>
+                                </div>
+
 
                             </Form>
                         </div>
