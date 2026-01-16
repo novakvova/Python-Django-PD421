@@ -3,6 +3,7 @@ import axios from "axios";
 import {Link, useNavigate} from "react-router-dom";
 import {APP_ENV} from "../env";
 import type {ILoginUser} from "../types/account/ILoginUser.ts";
+import {useGoogleLogin} from "@react-oauth/google";
 
 const LoginPage = () => {
     const [form] = Form.useForm<ILoginUser>();
@@ -33,6 +34,14 @@ const LoginPage = () => {
             .catch(error => console.log(error));
         // navigate("/");
     }
+
+    const handleLoginClick = useGoogleLogin({
+        onSuccess: tokenResponse =>
+        {
+            console.log(tokenResponse)
+            console.log("access_token", tokenResponse.access_token);
+        },
+    });
 
     return (
         <>
@@ -95,7 +104,17 @@ const LoginPage = () => {
                                     </Form.Item>
                                 </div>
 
-
+                                <div className={"mt-4"}>
+                                    <button
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            handleLoginClick();
+                                        }}
+                                        className="bg-blue-500 hover:bg-blue-600 transition text-white font-semibold px-4 py-2 rounded w-full mt-4"
+                                    >
+                                        {'Вхід через Google'}
+                                    </button>
+                                </div>
                             </Form>
                         </div>
                     </div>
