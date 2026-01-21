@@ -1,0 +1,5 @@
+1.Зробити Docker file для frontend та backend.
+2.Зробити docker image і закинути на docker Hub
+3.Розгонути проект у Ubuntu 24.04
+4.Перевірити роботу через IP
+5.Можна запустити через docker compose - усе разом.

@@ -7,6 +7,7 @@ import MainPage from "./pages/MainPage.tsx";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage.tsx";
 import SuccessPage from "./pages/SuccessPage.tsx";
 import ResetPasswordPage from "./pages/ResetPasswordPage.tsx";
+import CategoryCreatePage from "./pages/categories/CategoryCreatePage.tsx";
 
 function App() {
 
@@ -21,6 +22,9 @@ function App() {
                   <Route path={"forgot-password"} element={<ForgotPasswordPage />} />
                   <Route path={"success-confirm"} element={<SuccessPage />} />
                   <Route path="reset-password/:uid/:token" element={<ResetPasswordPage />} />
+                  <Route path={"categories"}>
+                      <Route path={"create"} element={<CategoryCreatePage/>} />
+                  </Route>
                   {/*<Route path="/profile" element={<ProfilePage />} />*/}
               </Route>
           </Routes>

@@ -151,6 +151,10 @@ IMAGES_URL = '/images/'
 
 IMAGES_ROOT = BASE_DIR / 'images'
 
+CATEGORY_IMAGES_URL = '/category_images/'
+
+CATEGORY_IMAGES_ROOT = BASE_DIR / 'category_images'
+
 AUTH_USER_MODEL = 'users.CustomUser'
 
 SPECTACULAR_SETTINGS = {

@@ -1,0 +1,2 @@
+Зроби CRUD операція на React App Django API.
+Хто хоче 12 балів зробіть через Query RTK.
